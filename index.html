@@ -19,35 +19,45 @@
 <body data-ng-controller="cricketCtrl">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-12 col-lg-12">
-				<h1>Bootstrap Template - Cricket App</h1>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-sm-12 col-lg-8">
+			<div class="col-sm-12 col-lg-8" ng-if="!(matchData | isEmpty)">
 				<!-- Main Score -->
 				<div class="row well">
-					<div class="col-sm-2 col-lg-2 hidden-xs well">1.1 (Spacer)</div>
-					<div class="col-sm-8 col-lg-8 well">1.2 (Main Score)</div>
-					<div class="col-sm-2 col-lg-2 hidden-xs well">1.3 (Spacer)</div>
+					<div class="col-sm-12 col-lg-12">
+						<div>{{matchData.description}}</div>
+					</div>
+<!-- 					<div class="col-sm-2 col-lg-2 hidden-xs well">1.1 (Spacer)</div>
+ -->					<div class="col-sm-8 col-lg-8" ng-if="matchData.centre.common">
+						<span ng-repeat="i in [0, 1]">
+							<div><span>{{getTeamName(matchData.innings[i].batting_team_id)}}</span>{{matchData.innings[i].runs}}/{{matchData.innings[i].wickets}} ({{matchData.innings[i].overs}} ov)</div>
+						</span>
+					</div>
+<!-- 					<div class="col-sm-2 col-lg-2 hidden-xs well">1.3 (Spacer)</div>
+ -->					<div class="col-sm-12 col-lg-12">
+						<div>{{matchData.live.status}}</div>
+					</div>
 				</div>
 
 				<!-- Additional Information -->
 				<div class="row well">
-					<div class="col-xs-6 col-sm-6 col-lg-6 well">2.1 (Additional Info - Left Half)</div>
-					<div class="col-xs-6 col-sm-6 col-lg-6 well">2.2 (Additional Info - Right Half)</div>
+					<div class="col-xs-6 col-sm-6 col-lg-6 well">Run Rate: {{matchData.live.innings.run_rate}} <span ng-if="matchData.live.innings.required_run_rate">Required Run Rate: {{matchData.live.innings.required_run-rate}}</span></div>
+					<div class="col-xs-6 col-sm-6 col-lg-6 well">Reviews: <span ng-repeat="i in [0, 1]">{{getTeamName(matchData.live.review[i].team_id)}}: {{matchData.live.review[i].remaining}}</span></div>
 				</div>
 
 				<!-- Recent Score -->
 				<div class="row well">
-					<div class="col-sm-12 col-lg-12 well">3.1 (Recent Score)</div>
+					<div class="col-sm-12 col-lg-12 well">
+						<span ng-repeat="over in matchData.live.recent_overs">
+							<span ng-repeat="ball in over">{{ball.ball}}</span>
+						</span>
+					</div>
 				</div>
 
 				<!-- Batsman's Scorecard - Transforms to full scorecard on lg template -->
 				<div class="row well">
 					<div class="col-sm-12 col-lg-12">
-						4.1 (Batsman's Scorecard Container (sm)/Full Scorecard (lg))
+						<div>
+							
+						</div>
 						<div class="row hidden-lg">
 							<div class="col-sm-12 well">
 								4.1; 1.1 (Batsman's Scorecard - Batsman 1)

@@ -1,4 +1,11 @@
 var app = angular.module("cricketScores", []);
+
+app.filter('isEmpty', [function() {
+	return function(object) {
+		return angular.equals({}, object);
+	}
+}])
+
 app.controller ("cricketCtrl", function ($scope, $interval, $http, $sce) {
 	// Api
 	function yql(url) {
@@ -13,6 +20,7 @@ app.controller ("cricketCtrl", function ($scope, $interval, $http, $sce) {
 	// $scope.currentMatchID = null;
 	// $scope.matchData = {};
 	$scope.matchData = {};
+	$scope.teamData = {};
 	$scope.summaryData = {};
 
 	$scope.getMatchData = function(matchURL) {
@@ -20,16 +28,12 @@ app.controller ("cricketCtrl", function ($scope, $interval, $http, $sce) {
 			.then(function(response) {
 				rawResponse = response.data.query.results.body;
 				if (rawResponse instanceof Object) { // if game is live, it has a .content in body (because of commentary?)
-					console.log("Object");
 					$scope.matchData = JSON.parse(rawResponse.content);
 				}
 				else {
 					$scope.matchData = JSON.parse(rawResponse);
 				}
-				console.log($scope.matchData);
-				// $scope.matchData = data;
-				// $scope.currentMatchID = ;
-				// $scope.matchData[$scope.currentMatchID] = data;
+				$scope.getTeamData();
 			}, function error(response) {
 				console.log(response);
 		});
@@ -44,26 +48,26 @@ app.controller ("cricketCtrl", function ($scope, $interval, $http, $sce) {
 		});
 	}
 
-	// function getAPISummary() {
-	// 	console.log(apiSummaryUrl);
-	// 	// This uses ajax to solve CORS problems
-	// 	$.ajax({
-	// 	    url: apiSummaryUrl,
-	// 	    type: 'GET',
-	// 	    crossOrigin: true,
-	// 	    dataType: 'jsonp',
-	// 	    success: function (data) {
-	// 	    	$scope.summaryData = JSON.parse(data);
-	// 	    	$scope.$apply();
-	// 	    }
-	// 	});
-	// }
+	$scope.getTeamData = function() {
+		$scope.teamData = [
+			{
+				id: $scope.matchData.team[0].team_id,
+				name: $scope.matchData.team[0].team_general_name
+			},
+			{
+				id: $scope.matchData.team[1].team_id,
+				name: $scope.matchData.team[1].team_general_name
+			}
+		];
+	}
+
+	$scope.getTeamName = function(teamID) {
+		return $scope.teamData.find(x => x.id === teamID).name;
+	}
 
 	$scope.changeCurrentMatch = function(match) {
 		matchURL = apiMatchUrl(match.url);
 		$scope.getMatchData(matchURL);
-
-		//$scope.currentMatch
 	}
 
 	// Call once, and then call every 60 seconds
