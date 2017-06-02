@@ -1,19 +1,21 @@
-Search function
-Refresh button
+Use matchData.live instead of matchData.center?
+
+Search function for right bar
 Fix schedule on right - not updating?
-
-Maybe make team name lookup a filter?
-
-HTML5 validation
-look at span and divs
-make 'proper'
 
 Bootstrap for collapsable divs
 
 Have a static field too, to show past games/full info
+
+Maybe make team name lookup a filter?
+
 
 ng to data-ng
 
 fuckin commentsssssssss
 
 Responsiveness
+
+HTML5 validation
+look at span and divs
+make 'proper'

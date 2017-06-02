@@ -71,7 +71,7 @@
 									<th id="baBalls" scope="col">Balls</th>
 									<th id="ba4" scope="col">4s</th>
 									<th id="ba6" scope="col">6s</th>
-									<th id="baPref" scope="col">Pref Shot</th>
+									<th id="baPref" scope="col">Pref. Shot</th>
 									<th id="baSR" scope="col">Strike Rate</th>
 								</tr>
 							</thead>
@@ -180,8 +180,8 @@
 					<h4>Squad</h4>
 					<div class="col-sm-12" ng-repeat="team in matchData.team">
 						<div class="row">
-							<div class="col-sm-12 well">
-								<p>{{team.team_general_name}}</p>
+							<div class="col-sm-12">
+								<h5>{{team.team_general_name}}</h5>
 								<span ng-repeat="player in team.player">{{player.card_long}}<span ng-if="!$last">, </span></span>
 							</div>
 						</div>
