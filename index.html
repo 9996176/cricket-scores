@@ -26,7 +26,7 @@
 						<div>{{matchData.description}}</div>
 					</div>
 <!-- 					<div class="col-sm-2 col-lg-2 hidden-xs well">1.1 (Spacer)</div>
- -->					<div class="col-sm-8 col-lg-8" ng-if="matchData.centre.common">
+ -->					<div class="col-sm-8 col-lg-8" ng-if="matchData.innings">
 						<span ng-repeat="i in [0, 1]">
 							<div><span>{{getTeamName(matchData.innings[i].batting_team_id)}}</span>{{matchData.innings[i].runs}}/{{matchData.innings[i].wickets}} ({{matchData.innings[i].overs}} ov)</div>
 						</span>
@@ -40,7 +40,7 @@
 				<!-- Additional Information -->
 				<div class="row well">
 					<div class="col-xs-6 col-sm-6 col-lg-6 well">Run Rate: {{matchData.live.innings.run_rate}} <span ng-if="matchData.live.innings.required_run_rate">Required Run Rate: {{matchData.live.innings.required_run-rate}}</span></div>
-					<div class="col-xs-6 col-sm-6 col-lg-6 well">Reviews: <span ng-repeat="i in [0, 1]">{{getTeamName(matchData.live.review[i].team_id)}}: {{matchData.live.review[i].remaining}}</span></div>
+					<div class="col-xs-6 col-sm-6 col-lg-6 well" ng-if="matchData.live.review.length != 0">Reviews: <span ng-repeat="i in [0, 1]">{{getTeamName(matchData.live.review[i].team_id)}}: {{matchData.live.review[i].remaining}}</span></div>
 				</div>
 
 				<!-- Recent Score -->
