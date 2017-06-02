@@ -25,64 +25,164 @@
 					<div class="col-sm-12 col-lg-12">
 						<div>{{matchData.description}}</div>
 					</div>
-<!-- 					<div class="col-sm-2 col-lg-2 hidden-xs well">1.1 (Spacer)</div>
- -->					<div class="col-sm-8 col-lg-8" ng-if="matchData.innings">
-						<span ng-repeat="i in [0, 1]">
-							<div><span>{{getTeamName(matchData.innings[i].batting_team_id)}}</span>{{matchData.innings[i].runs}}/{{matchData.innings[i].wickets}} ({{matchData.innings[i].overs}} ov)</div>
+					<div class="col-sm-8 col-lg-8" ng-if="matchData.innings">
+						<span ng-repeat="innings in matchData.innings">
+							<div><span>{{getTeamName(innings.batting_team_id)}}</span>{{innings.runs}}/{{innings.wickets}} ({{innings.overs}} ov)</div>
 						</span>
 					</div>
-<!-- 					<div class="col-sm-2 col-lg-2 hidden-xs well">1.3 (Spacer)</div>
- -->					<div class="col-sm-12 col-lg-12">
+					<div class="col-sm-12 col-lg-12">
 						<div>{{matchData.live.status}}</div>
 					</div>
+					<span class="glyphicon glyphicon-refresh" ng-click="changeCurrentMatch(currentMatch)"></span>
 				</div>
 
 				<!-- Additional Information -->
 				<div class="row well">
-					<div class="col-xs-6 col-sm-6 col-lg-6 well">Run Rate: {{matchData.live.innings.run_rate}} <span ng-if="matchData.live.innings.required_run_rate">Required Run Rate: {{matchData.live.innings.required_run-rate}}</span></div>
-					<div class="col-xs-6 col-sm-6 col-lg-6 well" ng-if="matchData.live.review.length != 0">Reviews: <span ng-repeat="i in [0, 1]">{{getTeamName(matchData.live.review[i].team_id)}}: {{matchData.live.review[i].remaining}}</span></div>
+					<div class="col-xs-6 col-sm-6 col-lg-6 well">
+						<span>Run Rate: {{matchData.live.innings.run_rate}}<span>
+						<span ng-if="matchData.live.innings.required_run_rate">Required Run Rate: {{matchData.live.innings.required_run-rate}}</span>
+						<span>Overs reamining: {{matchData.live.innings.remaining_overs}}</span>
+					</div>
+
+					<div class="col-xs-6 col-sm-6 col-lg-6 well" ng-if="matchData.live.review.length != 0">
+						Reviews: <span ng-repeat="reviews in matchData.live.review">{{getTeamName(reviews.team_id)}}: {{reviews.remaining}}</span>
+					</div>
 				</div>
 
 				<!-- Recent Score -->
 				<div class="row well">
 					<div class="col-sm-12 col-lg-12 well">
+						<span>Recent deliveries:</span>
 						<span ng-repeat="over in matchData.live.recent_overs">
 							<span ng-repeat="ball in over">{{ball.ball}}</span>
 						</span>
 					</div>
 				</div>
 
-				<!-- Batsman's Scorecard - Transforms to full scorecard on lg template -->
+				<!-- Batsman's Scorecard -->
 				<div class="row well">
+					<h4>Batsmen</h4>
 					<div class="col-sm-12 col-lg-12">
-						<div>
-
-						</div>
-						<div class="row hidden-lg">
-							<div class="col-sm-12 well">
-								4.1; 1.1 (Batsman's Scorecard - Batsman 1)
-							</div>
-						</div>
-						<div class="row hidden-lg">
-							<div class="col-sm-12 well">
-								4.1; 2.1 (Batsman's Scorecard - Batsman 2)
-							</div>
-						</div>
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th id="baName" scope="col">Name</th>
+									<th id="baRuns" scope="col">Runs</th>
+									<th id="baBalls" scope="col">Balls</th>
+									<th id="ba4" scope="col">4s</th>
+									<th id="ba6" scope="col">6s</th>
+									<th id="baPref" scope="col">Pref Shot</th>
+									<th id="baSR" scope="col">Strike Rate</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr data-ng-repeat="batter in matchData.centre.batting">
+									<td headers="baName">{{batter.known_as}}</td>
+									<td headers="baRuns">{{batter.runs}}</td>
+									<td headers="baBalls">{{batter.balls_faced}}</td>
+									<td headers="ba4">{{batter.runs_summary[4]}}</td>
+									<td headers="ba6">{{batter.runs_summary[6]}}</td>
+									<td headers="baPref">{{batter.preferred_shot.shot_name}}</td>
+									<td headers="baSR">{{batter.strike_rate}}</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 
-				<!-- Bowler's Scorecard - Hidden on large template -->
-				<div class="row hidden-lg well">
-					<div class="col-sm-12">
-						5.1 (Bowler's Scorecard Container)
+				<!-- Bowler's Scorecard -->
+				<div class="row well">
+					<h4>Bowlers</h4>
+					<div class="col-sm-12 col-lg-12">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th id="boName" scope="col">Name</th>
+									<th id="boOvers" scope="col">Overs</th>
+									<th id="boMaidens" scope="col">Maidens</th>
+									<th id="boConceded" scope="col">Runs</th>
+									<th id="boWickets" scope="col">Wickets</th>
+									<th id="boEcon" scope="col">Econ</th>
+									<th id="boStyle" scope="col">Style</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr data-ng-repeat="bowler in matchData.centre.bowling">
+									<td headers="boName">{{bowler.known_as}}</td>
+									<td headers="boOvers">{{bowler.overs}}</td>
+									<td headers="boMaidens">{{bowler.maidens}}</td>
+									<td headers="boConceded">{{bowler.conceded}}</td>
+									<td headers="boWickets">{{bowler.wickets}}</td>
+									<td headers="boEcon">{{bowler.economy_rate}}</td>
+									<td headers="boStyle">{{bowler.bowling_style}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<!-- Current Innings Scorecard -->
+				<div class="row well">
+					<h4>Current Innings</h4>
+					<div class="col-sm-12 col-lg-12">
+						<label for="filter-batter-known_as">Search Batsmen:</label>
+						<input type="text" id="filter-batter-known_as" name="filter-batter-known_as" data-ng-model="batter.known_as">
+						<table class="table table-striped table-bordered">
+							<thead>
+								<tr>
+									<th id="baName" scope="col">Name</th>
+									<th id="baRuns" scope="col">Runs</th>
+									<th id="baBalls" scope="col">Balls</th>
+									<th id="baSR" scope="col">Strike Rate</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr data-ng-repeat="batter in matchData.centre.common.batting | filter: batter">
+									<td headers="baName">{{batter.known_as}}</td>
+									<td headers="baRuns">{{batter.runs}}</td>
+									<td headers="baBalls">{{batter.balls_faced}}</td>
+									<td headers="baSR">{{(batter.runs * 100) / batter.balls_faced | number: 2}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="col-sm-12 col-lg-12">
+						<label for="filter-bowler-known_as">Search Bowlers:</label>
+						<input type="text" id="filter-bowler-known_as" name="filter-bowler-known_as" data-ng-model="bowler.known_as">
+						<table class="table table-striped table-bordered">
+							<thead>
+								<tr>
+									<th id="boName" scope="col">Name</th>
+									<th id="boOvers" scope="col">Overs</th>
+									<th id="boMaidens" scope="col">Maidens</th>
+									<th id="boConceded" scope="col">Runs</th>
+									<th id="boWickets" scope="col">Wickets</th>
+									<th id="boEcon" scope="col">Econ</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr data-ng-repeat="bowler in matchData.centre.common.bowling | filter: bowler">
+									<td headers="boName">{{bowler.known_as}}</td>
+									<td headers="boOvers">{{bowler.overs}}</td>
+									<td headers="boMaidens">{{bowler.maidens}}</td>
+									<td headers="boConceded">{{bowler.conceded}}</td>
+									<td headers="boWickets">{{bowler.wickets}}</td>
+									<td headers="boEcon">{{(bowler.conceded / bowler.overs) | number: 2}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<!-- Squad - only shown on large template -->
+				<div class="row well">
+					<h4>Squad</h4>
+					<div class="col-sm-12" ng-repeat="team in matchData.team">
 						<div class="row">
 							<div class="col-sm-12 well">
-								5.1; 1.1 (Bowler's Scorecard - Batsman 1)
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-12 well">
-								5.1; 2.1 (Bowler's Scorecard - Batsman 1)
+								<p>{{team.team_general_name}}</p>
+								<span ng-repeat="player in team.player">{{player.card_long}}<span ng-if="!$last">, </span></span>
 							</div>
 						</div>
 					</div>
@@ -97,6 +197,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12 well">5.1 (Search)</div>
+					<span class="glyphicon glyphicon-refresh" ng-click="getSummaryData()"></span>
 				</div>
 			</div>
 		</div>

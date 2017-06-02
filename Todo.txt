@@ -1,0 +1,19 @@
+Search function
+Refresh button
+Fix schedule on right - not updating?
+
+Maybe make team name lookup a filter?
+
+HTML5 validation
+look at span and divs
+make 'proper'
+
+Bootstrap for collapsable divs
+
+Have a static field too, to show past games/full info
+
+ng to data-ng
+
+fuckin commentsssssssss
+
+Responsiveness

@@ -17,13 +17,13 @@ app.controller ("cricketCtrl", function ($scope, $interval, $http, $sce) {
 		return yql("http://www.espncricinfo.com" + modMatchURL + ".json");
 	}
 
-	// $scope.currentMatchID = null;
-	// $scope.matchData = {};
+	$scope.currentMatch = {};
 	$scope.matchData = {};
 	$scope.teamData = {};
 	$scope.summaryData = {};
 
 	$scope.getMatchData = function(matchURL) {
+		console.log(matchURL);
 		$http.jsonp($sce.trustAsResourceUrl(matchURL))
 			.then(function(response) {
 				rawResponse = response.data.query.results.body;
@@ -33,6 +33,7 @@ app.controller ("cricketCtrl", function ($scope, $interval, $http, $sce) {
 				else {
 					$scope.matchData = JSON.parse(rawResponse);
 				}
+				// console.log(JSON.stringify($scope.matchData));
 				$scope.getTeamData();
 			}, function error(response) {
 				console.log(response);
@@ -40,6 +41,7 @@ app.controller ("cricketCtrl", function ($scope, $interval, $http, $sce) {
 	}
 
 	$scope.getSummaryData = function() {
+		console.log(apiSummaryUrl);
 		$http.get(apiSummaryUrl)
 			.then(function(response) {
 				$scope.summaryData = JSON.parse(response.data.query.results.body);
@@ -66,6 +68,7 @@ app.controller ("cricketCtrl", function ($scope, $interval, $http, $sce) {
 	}
 
 	$scope.changeCurrentMatch = function(match) {
+		$scope.currentMatch = match;
 		matchURL = apiMatchUrl(match.url);
 		$scope.getMatchData(matchURL);
 	}
