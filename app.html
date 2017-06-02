@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="cricketScores">
+<head>
+	<title>6.3D - Cricket Scores</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,
+	initial-scale=1.0" />
+	<!-- Bootstrap -->
+	<link href="../framework/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5
+	elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the
+	page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.js"></script>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body data-ng-controller="cricketCtrl">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12 col-lg-12">
+				<h1>Bootstrap Template - Cricket App</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12 col-lg-8">
+				<!-- Main Score -->
+				<div class="row well">
+					<div class="col-sm-2 col-lg-2 hidden-xs well">1.1 (Spacer)</div>
+					<div class="col-sm-8 col-lg-8 well">1.2 (Main Score)</div>
+					<div class="col-sm-2 col-lg-2 hidden-xs well">1.3 (Spacer)</div>
+				</div>
+
+				<!-- Additional Information -->
+				<div class="row well">
+					<div class="col-xs-6 col-sm-6 col-lg-6 well">2.1 (Additional Info - Left Half)</div>
+					<div class="col-xs-6 col-sm-6 col-lg-6 well">2.2 (Additional Info - Right Half)</div>
+				</div>
+
+				<!-- Recent Score -->
+				<div class="row well">
+					<div class="col-sm-12 col-lg-12 well">3.1 (Recent Score)</div>
+				</div>
+
+				<!-- Batsman's Scorecard - Transforms to full scorecard on lg template -->
+				<div class="row well">
+					<div class="col-sm-12 col-lg-12">
+						4.1 (Batsman's Scorecard Container (sm)/Full Scorecard (lg))
+						<div class="row hidden-lg">
+							<div class="col-sm-12 well">
+								4.1; 1.1 (Batsman's Scorecard - Batsman 1)
+							</div>
+						</div>
+						<div class="row hidden-lg">
+							<div class="col-sm-12 well">
+								4.1; 2.1 (Batsman's Scorecard - Batsman 2)
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Bowler's Scorecard - Hidden on large template -->
+				<div class="row hidden-lg well">
+					<div class="col-sm-12">
+						5.1 (Bowler's Scorecard Container)
+						<div class="row">
+							<div class="col-sm-12 well">
+								5.1; 1.1 (Bowler's Scorecard - Batsman 1)
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 well">
+								5.1; 2.1 (Bowler's Scorecard - Batsman 1)
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Right hand sidebar for large devices -->
+			<div class="col-lg-4 hidden-md hidden-sm hidden-xs well">
+				<div class="row well" ng-repeat="match in summaryData.matches" ng-click="changeCurrentMatch(match)">
+					<div class="col-lg-12">{{match.team1_name}} vs {{match.team2_name}}</div>
+					<div class="col-lg-12">{{match.match_clock}}</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 well">5.1 (Search)</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- jQuery - required for Bootstrap's JavaScript plugins) -->
+	<script src="../framework/js/jquery.min.js"></script>
+	<!-- All Bootstrap plug-ins file -->
+	<script src="../framework/js/bootstrap.min.js"></script>
+	<!-- Basic AngularJS -->
+	<script src="../framework/js/angular.min.js"></script>
+	<script src="myapp.js"></script>
+</body>
+</html>
