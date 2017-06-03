@@ -8,22 +8,32 @@ app.filter('isEmpty', [function() {
 }]);
 
 app.controller ("cricketCtrl", function ($scope, $interval, $http, $sce) {
-	// Api functions
+	// API functions
 	// Passes through yql as the data is unacessible otherwise
 	function yql(url) {
 		return "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D'" + url + "'&format=json"
 	}
-	var apiSummaryUrl = yql("http://www.espncricinfo.com/netstorage/summary.json?test");
+	var apiSummaryUrl = yql("http://www.espncricinfo.com/netstorage/summary.json?");
 	function apiMatchUrl(matchURL) {
 		modMatchURL = matchURL.replace('.html', '');
 		return yql("http://www.espncricinfo.com" + modMatchURL + ".json");
 	}
+	// End API
 
 	// Initialise needed variables
 	$scope.currentMatch = {};
 	$scope.matchData = {};
 	$scope.teamData = {};
 	$scope.summaryData = {};
+
+	// Changes the current match to the one clicked (or refreshed)
+	$scope.changeCurrentMatch = function(match) {
+		$scope.currentMatch = match;
+		if (match.url) {
+			matchURL = apiMatchUrl(match.url);
+			$scope.getMatchData(matchURL);
+		}
+	}
 
 	// Returns match data for a non-live game (Aus vs NZ)
 	$scope.getFakeData = function() {
@@ -95,21 +105,31 @@ app.controller ("cricketCtrl", function ($scope, $interval, $http, $sce) {
 		}
 	}
 
+	// Lookup function
 	$scope.getPlayerName = function(playerID) {
 		return $scope.playerData.find(x => x.id === playerID).name;
 	}
 
+	// Lookup function
 	$scope.getTeamName = function(teamID) {
 		return $scope.teamData.find(x => x.id === teamID).name;
 	}
 
-	$scope.changeCurrentMatch = function(match) {
-		$scope.currentMatch = match;
-		matchURL = apiMatchUrl(match.url);
-		$scope.getMatchData(matchURL);
+	$scope.scrollToMatches = function() {
+		$('html, body').animate({
+		    scrollTop: $("#match-nav").offset().top
+		}, 500);
 	}
 
-	// Call once, and then call every 60 seconds
+	// Called once, and then call every 60 seconds
 	$scope.getSummaryData();
-	// $interval(getAPISummary, 60000);
+
+	// Update current match data, and summary data, every 60s
+	$interval( function() {
+		$scope.getSummaryData();
+
+		if ($scope.currentMatch.url) {
+			$scope.changeCurrentMatch($scope.currentMatch);
+		}
+	}, 60000);
 });

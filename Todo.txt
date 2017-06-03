@@ -4,10 +4,6 @@ Look over col- classes, make consistent
 
 Move http functions into a service?
 
-fuckin commentsssssssss
-
-Responsiveness
-
 HTML5 validation
 look at span and divs
 make 'proper'
