@@ -84,11 +84,11 @@ app.controller ("cricketCtrl", function ($scope, $interval, $http, $sce) {
 		$scope.teamData = [
 			{
 				id: $scope.matchData.team[0].team_id,
-				name: $scope.matchData.team[0].team_general_name
+				name: $scope.matchData.team[0].team_short_name
 			},
 			{
 				id: $scope.matchData.team[1].team_id,
-				name: $scope.matchData.team[1].team_general_name
+				name: $scope.matchData.team[1].team_short_name
 			}
 		];
 
