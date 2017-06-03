@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-ng-app="cricketScores">
+<html ladata-ng="en" data-ng-app="cricketScores">
 <head>
 	<title>6.3D - Cricket Scores</title>
 	<meta charset="utf-8" />
@@ -9,180 +9,270 @@
 	<link href="framework/css/bootstrap.min.css" rel="stylesheet" />
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5
 	elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the
+	<!-- WARNIdata-ng: Respond.js doesn't work if you view the
 	page via file:// -->
 	<!--[if lt IE 9]>
 	<script src="js/html5shiv.js"></script>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
+
+	<style>
+		.headidata-ng__team-name {
+			font-size: 16px;
+			font-weight: bold;
+		}
+
+		.headidata-ng__status {
+			margin-top: 5px;
+		}
+
+		.ball {
+			margin: 0 4px;
+		}
+
+		.ball-separator {
+			margin: 0 10px;
+		}
+
+		.jumbotron.no-paddidata-ng {
+			paddidata-ng: 0;
+		}
+	</style>
 </head>
 <body data-ng-controller="cricketCtrl">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-12 col-lg-8" ng-if="!(matchData | isEmpty)">
+			<div class="col-sm-12 col-lg-8" data-ng-if="!(matchData | isEmpty)">
 				<!-- Main Score -->
-				<div class="row well">
-					<div class="col-sm-12 col-lg-12">
-						<div>{{matchData.description}}</div>
+				<div class="row jumbotron no-paddidata-ng">
+					<div class="col-sm-11 col-lg-11">
+						<h5>{{matchData.description}}</h5>
 					</div>
-					<div class="col-sm-8 col-lg-8" ng-if="matchData.innings">
-						<span ng-repeat="innings in matchData.innings">
-							<div><span>{{getTeamName(innings.batting_team_id)}}</span>{{innings.runs}}/{{innings.wickets}} ({{innings.overs}} ov)</div>
-						</span>
+					<div class="col-sm-1 col-lg-1">
+						<span class="glyphicon glyphicon-refresh" data-ng-click="chadata-ngeCurrentMatch(currentMatch)"></span>
 					</div>
-					<div class="col-sm-12 col-lg-12">
-						<div>{{matchData.live.status}}</div>
+					<div class="col-sm-8 col-lg-8" data-ng-if="matchData.innidata-ngs">
+						<div class="row" data-ng-repeat="innidata-ngs in matchData.innidata-ngs">
+							<div class="col-lg-4 headidata-ng__team-name">
+								<p>{{getTeamName(innidata-ngs.battidata-ng_team_id)}}</p>
+							</div>
+							<div class="col-lg-2">
+								<p>{{innidata-ngs.runs}}/{{innidata-ngs.wickets}}</p>
+							</div>
+							<div class="col-lg-3">
+								<p>({{innidata-ngs.overs}} ov)</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 col-lg-12 headidata-ng__status">
+								<h5>{{matchData.live.status}}</h5>
+							</div>
+						</div>
 					</div>
-					<span class="glyphicon glyphicon-refresh" ng-click="changeCurrentMatch(currentMatch)"></span>
 				</div>
 
 				<!-- Additional Information -->
-				<div class="row well">
-					<div class="col-xs-6 col-sm-6 col-lg-6 well">
-						<span>Run Rate: {{matchData.live.innings.run_rate}}<span>
-						<span ng-if="matchData.live.innings.required_run_rate">Required Run Rate: {{matchData.live.innings.required_run-rate}}</span>
-						<span>Overs reamining: {{matchData.live.innings.remaining_overs}}</span>
-					</div>
+				<div class="row" data-ng-if="!(matchData.live.innidata-ngs | isEmpty)">
+					<div class="panel panel-default">
+						<div class="panel-headidata-ng">
+							<a data-toggle="collapse" href="#additional-info">Additional Info</a>
+						</div>
+						<div id="additional-info" class="collapse in">
+							<div class="panel-body">
+								<div class="col-sm-2 col-lg-2">
+									<p>RR: {{matchData.live.innidata-ngs.run_rate}}</p>
+								</div>
+								<div class="col-sm-2 col-lg-2" data-ng-if="matchData.live.innidata-ngs.required_run_rate">
+									<p>RRR: {{matchData.live.innidata-ngs.required_run-rate}}</p>
+								</div>
+								<div class="col-sm-3 col-lg-3" data-ng-if="matchData.live.innidata-ngs.remainidata-ng_overs != 0">
+									<p>Overs remainidata-ng: {{matchData.live.innidata-ngs.remainidata-ng_overs}}</p>
+								</div>
 
-					<div class="col-xs-6 col-sm-6 col-lg-6 well" ng-if="matchData.live.review.length != 0">
-						Reviews: <span ng-repeat="reviews in matchData.live.review">{{getTeamName(reviews.team_id)}}: {{reviews.remaining}}</span>
+								<div class="col-sm-5 col-lg-5" data-ng-if="matchData.live.review.ledata-ngth != 0">
+									Reviews: <span data-ng-repeat="reviews in matchData.live.review">{{getTeamName(reviews.team_id)}}: {{reviews.remainidata-ng}}</span>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 
 				<!-- Recent Score -->
-				<div class="row well">
-					<div class="col-sm-12 col-lg-12 well">
-						<span>Recent deliveries:</span>
-						<span ng-repeat="over in matchData.live.recent_overs">
-							<span ng-repeat="ball in over">{{ball.ball}}</span>
-						</span>
+				<div class="row" data-ng-if="matchData.live.recent_overs.ledata-ngth != 0">
+					<div class="panel panel-default">
+						<div class="panel-headidata-ng">
+							<a data-toggle="collapse" href="#recent-deliveries">Recent Deliveries</a>
+						</div>
+						<div id="recent-deliveries" class="collapse in">
+							<div class="panel-body">
+								<div class="col-sm-12 col-lg-12">
+									<span data-ng-repeat="over in matchData.live.recent_overs">
+										<span class="ball" data-ng-repeat="ball in over">{{ball.ball}}</span>
+										<span class="ball-separator" data-ng-if="!$last">|</span>
+									</span>
+								</div>
+							</div>
+						</div>
 					</div>
+
 				</div>
 
 				<!-- Batsman's Scorecard -->
-				<div class="row well">
-					<h4>Batsmen</h4>
-					<div class="col-sm-12 col-lg-12">
-						<table class="table table-striped">
-							<thead>
-								<tr>
-									<th id="baName" scope="col">Name</th>
-									<th id="baRuns" scope="col">Runs</th>
-									<th id="baBalls" scope="col">Balls</th>
-									<th id="ba4" scope="col">4s</th>
-									<th id="ba6" scope="col">6s</th>
-									<th id="baPref" scope="col">Pref. Shot</th>
-									<th id="baSR" scope="col">Strike Rate</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr data-ng-repeat="batter in matchData.centre.batting">
-									<td headers="baName">{{batter.known_as}}</td>
-									<td headers="baRuns">{{batter.runs}}</td>
-									<td headers="baBalls">{{batter.balls_faced}}</td>
-									<td headers="ba4">{{batter.runs_summary[4]}}</td>
-									<td headers="ba6">{{batter.runs_summary[6]}}</td>
-									<td headers="baPref">{{batter.preferred_shot.shot_name}}</td>
-									<td headers="baSR">{{batter.strike_rate}}</td>
-								</tr>
-							</tbody>
-						</table>
+				<div class="row" data-ng-if="matchData.live.battidata-ng.ledata-ngth != 0">
+					<div class="panel panel-default">
+						<div class="panel-headidata-ng">
+							<a data-toggle="collapse" href="#battidata-ng-scorecard">Batsmen</a>
+						</div>
+						<div id="battidata-ng-scorecard" class="collapse in">
+							<div class="panel-body">
+								<div class="col-sm-12 col-lg-12">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th id="baName" scope="col">Name</th>
+												<th id="baRuns" scope="col">Runs</th>
+												<th id="baBalls" scope="col">Balls</th>
+												<th id="ba4" scope="col">4s</th>
+												<th id="ba6" scope="col">6s</th>
+												<th id="baSR" scope="col">Strike Rate</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr data-ng-repeat="batter in matchData.live.battidata-ng">
+												<td headers="baName">{{getPlayerName(batter.player_id)}}</td>
+												<td headers="baRuns">{{batter.runs}}</td>
+												<td headers="baBalls">{{batter.balls_faced}}</td>
+												<td headers="ba4">{{batter.fours}}</td>
+												<td headers="ba6">{{batter.sixes}}</td>
+												<td headers="baSR">{{batter.strike_rate}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 
 				<!-- Bowler's Scorecard -->
-				<div class="row well">
-					<h4>Bowlers</h4>
-					<div class="col-sm-12 col-lg-12">
-						<table class="table table-striped">
-							<thead>
-								<tr>
-									<th id="boName" scope="col">Name</th>
-									<th id="boOvers" scope="col">Overs</th>
-									<th id="boMaidens" scope="col">Maidens</th>
-									<th id="boConceded" scope="col">Runs</th>
-									<th id="boWickets" scope="col">Wickets</th>
-									<th id="boEcon" scope="col">Econ</th>
-									<th id="boStyle" scope="col">Style</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr data-ng-repeat="bowler in matchData.centre.bowling">
-									<td headers="boName">{{bowler.known_as}}</td>
-									<td headers="boOvers">{{bowler.overs}}</td>
-									<td headers="boMaidens">{{bowler.maidens}}</td>
-									<td headers="boConceded">{{bowler.conceded}}</td>
-									<td headers="boWickets">{{bowler.wickets}}</td>
-									<td headers="boEcon">{{bowler.economy_rate}}</td>
-									<td headers="boStyle">{{bowler.bowling_style}}</td>
-								</tr>
-							</tbody>
-						</table>
+				<div class="row" data-ng-if="matchData.live.bowlidata-ng.ledata-ngth != 0">
+					<div class="panel panel-default">
+						<div class="panel-headidata-ng">
+							<a data-toggle="collapse" href="#bowlidata-ng-scorecard">Bowlers</a>
+						</div>
+						<div id="bowlidata-ng-scorecard" class="collapse in">
+							<div class="panel-body">
+								<div class="col-sm-12 col-lg-12">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th id="boName" scope="col">Name</th>
+												<th id="boOvers" scope="col">Overs</th>
+												<th id="boMaidens" scope="col">Maidens</th>
+												<th id="boConceded" scope="col">Runs</th>
+												<th id="boWickets" scope="col">Wickets</th>
+												<th id="boEcon" scope="col">Econ</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr data-ng-repeat="bowler in matchData.live.bowlidata-ng">
+												<td headers="boName">{{getPlayerName(bowler.player_id)}}</td>
+												<td headers="boOvers">{{bowler.overs}}</td>
+												<td headers="boMaidens">{{bowler.maidens}}</td>
+												<td headers="boConceded">{{bowler.conceded}}</td>
+												<td headers="boWickets">{{bowler.wickets}}</td>
+												<td headers="boEcon">{{bowler.economy_rate}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 
-				<!-- Current Innings Scorecard -->
-				<div class="row well">
-					<h4>Current Innings</h4>
-					<div class="col-sm-12 col-lg-12">
-						<label for="filter-batter-known_as">Search Batsmen:</label>
-						<input type="text" id="filter-batter-known_as" name="filter-batter-known_as" data-ng-model="batter.known_as">
-						<table class="table table-striped table-bordered">
-							<thead>
-								<tr>
-									<th id="baName" scope="col">Name</th>
-									<th id="baRuns" scope="col">Runs</th>
-									<th id="baBalls" scope="col">Balls</th>
-									<th id="baSR" scope="col">Strike Rate</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr data-ng-repeat="batter in matchData.centre.common.batting | filter: batter">
-									<td headers="baName">{{batter.known_as}}</td>
-									<td headers="baRuns">{{batter.runs}}</td>
-									<td headers="baBalls">{{batter.balls_faced}}</td>
-									<td headers="baSR">{{(batter.runs * 100) / batter.balls_faced | number: 2}}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+				<!-- Current Innidata-ngs Scorecard -->
+				<div class="row" data-ng-if="matchData.centre.common">
+					<div class="panel panel-default">
+						<div class="panel-headidata-ng">
+							<a data-toggle="collapse" href="#innidata-ngs-scorecard">Current Innidata-ngs</a>
+						</div>
+						<div id="innidata-ngs-scorecard" class="collapse in">
+							<div class="panel-body">
+								<div class="col-sm-12 col-lg-12">
+									<label for="filter-batter-known_as">Search Batsmen:</label>
+									<input type="text" id="filter-batter-known_as" class="form-group" name="filter-batter-known_as" data-ng-model="batter.known_as">
+									<table class="table table-striped table-bordered">
+										<thead>
+											<tr>
+												<th id="baName" scope="col">Name</th>
+												<th id="baRuns" scope="col">Runs</th>
+												<th id="baBalls" scope="col">Balls</th>
+												<th id="baSR" scope="col">Strike Rate</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr data-ng-repeat="batter in matchData.centre.common.battidata-ng | filter: batter">
+												<td headers="baName">{{batter.known_as}}</td>
+												<td headers="baRuns">{{batter.runs}}</td>
+												<td headers="baBalls">{{batter.balls_faced}}</td>
+												<td headers="baSR">{{(batter.runs * 100) / batter.balls_faced | number: 2}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
 
-					<div class="col-sm-12 col-lg-12">
-						<label for="filter-bowler-known_as">Search Bowlers:</label>
-						<input type="text" id="filter-bowler-known_as" name="filter-bowler-known_as" data-ng-model="bowler.known_as">
-						<table class="table table-striped table-bordered">
-							<thead>
-								<tr>
-									<th id="boName" scope="col">Name</th>
-									<th id="boOvers" scope="col">Overs</th>
-									<th id="boMaidens" scope="col">Maidens</th>
-									<th id="boConceded" scope="col">Runs</th>
-									<th id="boWickets" scope="col">Wickets</th>
-									<th id="boEcon" scope="col">Econ</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr data-ng-repeat="bowler in matchData.centre.common.bowling | filter: bowler">
-									<td headers="boName">{{bowler.known_as}}</td>
-									<td headers="boOvers">{{bowler.overs}}</td>
-									<td headers="boMaidens">{{bowler.maidens}}</td>
-									<td headers="boConceded">{{bowler.conceded}}</td>
-									<td headers="boWickets">{{bowler.wickets}}</td>
-									<td headers="boEcon">{{(bowler.conceded / bowler.overs) | number: 2}}</td>
-								</tr>
-							</tbody>
-						</table>
+								<div class="col-sm-12 col-lg-12">
+									<label for="filter-bowler-known_as">Search Bowlers:</label>
+									<input type="text" id="filter-bowler-known_as" class="form-group" name="filter-bowler-known_as" data-ng-model="bowler.known_as">
+									<table class="table table-striped table-bordered">
+										<thead>
+											<tr>
+												<th id="boName" scope="col">Name</th>
+												<th id="boOvers" scope="col">Overs</th>
+												<th id="boMaidens" scope="col">Maidens</th>
+												<th id="boConceded" scope="col">Runs</th>
+												<th id="boWickets" scope="col">Wickets</th>
+												<th id="boEcon" scope="col">Econ</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr data-ng-repeat="bowler in matchData.centre.common.bowlidata-ng | filter: bowler">
+												<td headers="boName">{{bowler.known_as}}</td>
+												<td headers="boOvers">{{bowler.overs}}</td>
+												<td headers="boMaidens">{{bowler.maidens}}</td>
+												<td headers="boConceded">{{bowler.conceded}}</td>
+												<td headers="boWickets">{{bowler.wickets}}</td>
+												<td headers="boEcon">{{(bowler.conceded / bowler.overs) | number: 2}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 
 				<!-- Squad - only shown on large template -->
-				<div class="row well">
-					<h4>Squad</h4>
-					<div class="col-sm-12" ng-repeat="team in matchData.team">
-						<div class="row">
-							<div class="col-sm-12">
-								<h5>{{team.team_general_name}}</h5>
-								<span ng-repeat="player in team.player">{{player.card_long}}<span ng-if="!$last">, </span></span>
+				<div class="row">
+					<div class="panel panel-default">
+						<div class="panel-headidata-ng">
+							<a data-toggle="collapse" href="#id">
+								<span data-ng-if="matchData.team[0].player">Team</span>
+								<span data-ng-if="!matchData.team[0].player">Squad</span>
+							</a>
+						</div>
+						<div id="id" class="collapse in">
+							<div class="panel-body">
+								<div class="col-sm-12 col-lg-12" data-ng-repeat="team in matchData.team">
+									<div class="row">
+										<div class="col-sm-12 col-lg-12 well">
+											<p><strodata-ng>{{team.team_general_name}}</strodata-ng></p>
+											<span data-ng-if="team.player" data-ng-repeat="player in team.player">{{player.card_lodata-ng}}<span data-ng-if="!$last">, </span></span>
+											<span data-ng-if="!team.player" data-ng-repeat="player in team.squad">{{player.card_lodata-ng}}<span data-ng-if="!$last">, </span></span>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -191,13 +281,18 @@
 
 			<!-- Right hand sidebar for large devices -->
 			<div class="col-lg-4 hidden-md hidden-sm hidden-xs well">
-				<div class="row well" ng-repeat="match in summaryData.matches" ng-click="changeCurrentMatch(match)">
+				<div class="row well" data-ng-click="getFakeData()">
+					<div class="col-lg-12">NZ vs Aus (Fake Data Demo)</div>
+				</div>
+				<div class="row well" data-ng-repeat="match in summaryData.matches" data-ng-click="chadata-ngeCurrentMatch(match)">
 					<div class="col-lg-12">{{match.team1_name}} vs {{match.team2_name}}</div>
 					<div class="col-lg-12">{{match.match_clock}}</div>
+					<div data-ng-if="match.team1_score || match.team2_score" class="col-lg-12">{{match.team1_score}} <span data-ng-if="match.team2_score">vs {{match.team2_score}}</span></div>
+					<div class="col-lg-12">{{match.live_state}}</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-12 well">5.1 (Search)</div>
-					<span class="glyphicon glyphicon-refresh" ng-click="getSummaryData()"></span>
+					<input type="text" id="search-games" name="search-games" data-ng-model="match.team1_name">
+					<span class="glyphicon glyphicon-refresh" data-ng-click="getSummaryData()"></span>
 				</div>
 			</div>
 		</div>
@@ -206,8 +301,8 @@
 	<script src="framework/js/jquery.min.js"></script>
 	<!-- All Bootstrap plug-ins file -->
 	<script src="framework/js/bootstrap.min.js"></script>
-	<!-- Basic AngularJS -->
-	<script src="framework/js/angular.min.js"></script>
+	<!-- Basic Adata-ngularJS -->
+	<script src="framework/js/adata-ngular.min.js"></script>
 	<script src="myapp.js"></script>
 </body>
 </html>

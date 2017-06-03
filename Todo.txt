@@ -1,16 +1,8 @@
-Use matchData.live instead of matchData.center?
-
 Search function for right bar
-Fix schedule on right - not updating?
 
-Bootstrap for collapsable divs
+Look over col- classes, make consistent
 
-Have a static field too, to show past games/full info
-
-Maybe make team name lookup a filter?
-
-
-ng to data-ng
+Move http functions into a service?
 
 fuckin commentsssssssss
 
@@ -19,3 +11,6 @@ Responsiveness
 HTML5 validation
 look at span and divs
 make 'proper'
+
+Add a top nav with scrolling?
+Turn sidebar into nav
