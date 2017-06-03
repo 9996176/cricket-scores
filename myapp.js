@@ -13,7 +13,7 @@ app.controller ("cricketCtrl", function ($scope, $interval, $http, $sce) {
 	function yql(url) {
 		return "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D'" + url + "'&format=json"
 	}
-	var apiSummaryUrl = yql("http://www.espncricinfo.com/netstorage/summary.json?");
+	var apiSummaryUrl = yql("http://www.espncricinfo.com/netstorage/summary.json?" + Math.random());
 	function apiMatchUrl(matchURL) {
 		modMatchURL = matchURL.replace('.html', '');
 		return yql("http://www.espncricinfo.com" + modMatchURL + ".json");

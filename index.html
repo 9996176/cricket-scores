@@ -63,7 +63,11 @@
 			cursor: pointer;
 		}
 
-		.refresh-match-button:hover, .match-list-button:hover {
+		.refresh-summary-button {
+			cursor: pointer;
+		}
+
+		.refresh-match-button:hover, .match-list-button:hover, .refresh-summary-button:hover {
 			color: #aaa;
 		}
 
@@ -327,7 +331,7 @@
 				</div>
 				<div class="row match-search">
 					<input type="text" id="search-games" name="search-games" data-ng-model="match.team1_name">
-					<span class="glyphicon glyphicon-refresh" data-ng-click="getSummaryData()"></span>
+					<span class="glyphicon glyphicon-refresh refresh-summary-button" data-ng-click="getSummaryData()"></span>
 				</div>
 			</nav>
 		</div>

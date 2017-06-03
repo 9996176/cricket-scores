@@ -1,12 +1,5 @@
 Search function for right bar
 
-Look over col- classes, make consistent
-
 Move http functions into a service?
 
-HTML5 validation
-look at span and divs
-make 'proper'
-
-Add a top nav with scrolling?
-Turn sidebar into nav
+HTML5 validation, make 'proper'
