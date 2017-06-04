@@ -1,5 +1,1 @@
-Search function for right bar
-
-Move http functions into a service?
-
 HTML5 validation, make 'proper'

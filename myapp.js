@@ -1,24 +1,51 @@
 var app = angular.module("cricketScores", []);
 
 // Checks to see if an object is empty
-app.filter('isEmpty', [function() {
+app.filter('isEmpty', function() {
 	return function(object) {
 		return angular.equals({}, object);
 	}
-}]);
+});
+
+// Returns matches when either Team 1 or Team 2's name matches the search string
+// Works with lower/uppercase
+app.filter('matchFilter', function() {
+	return function(items, search) {
+		if (!items || !search || !search.input) {
+			return items;
+		}
+
+		matches = Object.values(items);
+
+		searchString = search.input.toLowerCase();
+
+		return $.grep(matches, function(m) {
+			return m.team1_name.toLowerCase().includes(searchString)
+				|| m.team2_name.toLowerCase().includes(searchString);
+		});
+
+		// items.filter(x => x.id === team1_name).name
+		// console.log(items);
+	}
+});
 
 app.controller ("cricketCtrl", function ($scope, $interval, $http, $sce) {
-	// API functions
-	// Passes through yql as the data is unacessible otherwise
+	// Start API section
+
+	// API URLs is passed through yql as the data is inacessible otherwise
 	function yql(url) {
 		return "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D'" + url + "'&format=json"
 	}
+
+	// Random string appended to end, to avoid caching
 	var apiSummaryUrl = yql("http://www.espncricinfo.com/netstorage/summary.json?" + Math.random());
+	
+	// For a given matchURL from JSON, return proper match JSON page
 	function apiMatchUrl(matchURL) {
 		modMatchURL = matchURL.replace('.html', '');
 		return yql("http://www.espncricinfo.com" + modMatchURL + ".json");
 	}
-	// End API
+	// End API section
 
 	// Initialise needed variables
 	$scope.currentMatch = {};
