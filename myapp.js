@@ -23,9 +23,6 @@ app.filter('matchFilter', function() {
 			return m.team1_name.toLowerCase().includes(searchString)
 				|| m.team2_name.toLowerCase().includes(searchString);
 		});
-
-		// items.filter(x => x.id === team1_name).name
-		// console.log(items);
 	}
 });
 
@@ -142,6 +139,7 @@ app.controller ("cricketCtrl", function ($scope, $interval, $http, $sce) {
 		return $scope.teamData.find(x => x.id === teamID).name;
 	}
 
+	// Scrolls to matches nav
 	$scope.scrollToMatches = function() {
 		$('html, body').animate({
 		    scrollTop: $("#match-nav").offset().top

@@ -81,7 +81,7 @@
 		<div class="row">
 			<div class="col-sm-12 col-lg-8" data-ng-if="!(matchData | isEmpty)">
 
-				<!-- Main Score -->
+				<!-- Main Score & Status -->
 				<div class="row jumbotron no-padding">
 					<div class="col-sm-12 col-lg-12">
 						<h5>{{matchData.description}}</h5>
@@ -110,7 +110,7 @@
 					</div>
 				</div>
 
-				<!-- Additional Information -->
+				<!-- Additional Information: RR, RRR, Overs, Reviews -->
 				<div class="row" data-ng-if="!(matchData.live.innings | isEmpty)">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -136,7 +136,7 @@
 					</div>
 				</div>
 
-				<!-- Recent Score -->
+				<!-- Recent Overs -->
 				<div class="row" data-ng-if="matchData.live.recent_overs.length != 0">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -230,7 +230,7 @@
 					</div>
 				</div>
 
-				<!-- Current Innidata-ngs Scorecard -->
+				<!-- Current Innings Scorecard -->
 				<div class="row" data-ng-if="matchData.centre.common">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -292,7 +292,7 @@
 					</div>
 				</div>
 
-				<!-- Squad - only shown on large template -->
+				<!-- Team/Squad -->
 				<div class="row">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -318,7 +318,7 @@
 				</div>
 			</div>
 
-			<!-- Right hand sidebar for large devices -->
+			<!-- Right hand sidebar for large devices / Lower nav for small devices -->
 			<nav id="match-nav" class="col-xs-12 col-sm-12" data-ng-class="{'col-lg-4': !(matchData | isEmpty), 'col-lg-12': (matchData | isEmpty)}">
 				<div class="row match-list" data-ng-click="getFakeData()">
 					<div class="col-lg-12">NZ vs Aus (Fake Data Demo)</div>
